@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:fragment="header-css">
+    <meta charset="UTF-8">
+<!--    fontawesome-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <title>Pawfect</title>
+</head>
+<body>
+
+<!--navbar start-->
+<nav class="navbar navbar-expand-lg navbar-light bg-white py-2 fixed-top">
+    <div class="container">
+        <a class="navbar-brand d-flex justify-content-between align-items-center order-lg-0" href="/user/homepage">
+            <img th:src="@{/images/paws.png}" alt="site icon">
+            <span class="text-uppercase fw-lighter ms-2">Pawfect</span>
+        </a>
+        <div class=" order-lg-2 nav-btns">
+            <button type="button" class="btn">
+                    <a class="nav-link" th:href="@{~/user/viewAllMyAdoptions/}+${userdata.id}"> <i class="fa-solid fa-user"></i> </a>
+            </button>
+            <button type="button" class="btn" sec:authorize="isAuthenticated()" >
+                <a class="nav-link" th:href="@{~/logout}"><i class="fa fa-arrow-right-from-bracket"></i>  </a>
+            </button>
+        </div>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse order-lg-1" id="navMenu">
+            <ul class="navbar-nav mx-auto text-center">
+                <li class="nav-item px-2 py-2">
+                    <a class="nav-link  text-uppercase text-dark" href="/user/homepage" >Home</a>
+                </li>
+                <li class="nav-item px-2 py-2">
+                    <a class="nav-link text-uppercase text-dark" href="#pets">Pets</a>
+                </li>
+                <li class="nav-item px-2 py-2" >
+                    <a class="nav-link text-uppercase text-dark" href="#faqs" >FAQs</a>
+                </li>
+                <li class="nav-item px-2 py-2 border-0" >
+                    <a class="nav-link text-uppercase text-dark" href="#contactus" >Contact us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--navbar end-->
+
+<!--header-->
+<header id="header1"  class="vh-100 carousel slide responsive"  data-bs-ride="carousel" style="padding-top:3rem;  max-inline-size: 100%;
+    block-size: auto;">
+    <div class="container h-100 d-flex align-items-center carousel-inner">
+
+        <div class="text-left carousel-item active">
+            <h2 class="text-uppercase py-2 fw-bold " style="color: #B5C5CD">For wagging tails and more</h2>
+            <a href="#pets" class="btn mt-3 text-uppercase">Adopt </a>
+        </div>
+        <div class="text-left carousel-item">
+            <h2 class="text-capitalize text-black">Fur-ever</h2>
+
+            <h2 class="text-uppercase py-2 fw-bold text-black " >Because its your Family</h2>
+
+            <a href="#pets" class="btn mt-3 text-uppercase">Adopt </a>
+        </div>
+
+    </div>
+
+</header>
+<!--header end-->
+<!--pets collection-->
+
+<section id="pets" class="py-5">
+    <div class="container">
+        <div class="title text-center">
+            <h2 class="position-relative d-inline-block">New Pets</h2>
+        </div>
+        <div class="row g-0">
+            <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
+                <button type="button" class="btn m-2 text-dark active-filter-btn" data-filter="*">All</button>
+                <button type="button" class="btn m-2 text-dark" data-filter=".cat">Cats</button>
+                <button type="button" class="btn m-2 text-dark" data-filter=".dog">Dogs</button>
+                <button type="button" class="btn m-2 text-dark" data-filter=".featured">Featured</button>
+            </div>
+            <script>
+                const dropdown = document.getElementById("pet-type");
+                const targetDiv = document.querySelector(".targetClass");
+
+                dropdown.addEventListener("change", function() {
+                    targetDiv.className = dropdown.value;
+                });
+            </script>
+
+            <div class="container" >
+                <div class="row">
+                    <div class="col card-deck my-3  d-flex flex-wrap ">
+
+                            <div class="card" th:each="pet:${add}" >
+                                <a th:href="@{~/user/petinfo/}+${pet.id}">
+                                <img class="card-img-top" th:src="'data:image/png;base64,'+${pet.imageBase64}"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h4 class="card-title" th:text="${pet.petname}"></h4>
+                                    <p class="card-text" th:text="${pet.breed}"></p>
+                                    <p class="card-text" th:text="${pet.description}"></p>
+                                </div>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--                </div>-->
+<!--                <div class="col-md-6 col-lg-4 col-xl-3 p-2 cats">-->
+<!--                    <div class="pets-img position-relative">-->
+<!--                        <img src="images/cat4.png" class="w-100">-->
+<!--                        <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-5"><i class="fas fa-heart"></i></span>-->
+
+
+<!--                    </div>-->
+<!--                        <div class="text-center">-->
+<!--                            <p class="text-capitalize my-1 mt-3 mb-1">Golden Retriever</p>-->
+<!--                            <span class="fw-bold d-block"> Fully Trained</span>-->
+<!--                            <a href="#" class="btn btn-primary mt-3">Adopt</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+        </div>
+    </div>
+</section>
+
+<hr>
+<br>
+
+<div class="accordion" id="faqs">
+    <div class="title text-center mb-3">
+        <h2 class="position-relative d-inline-block">FAQs</h2>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header mb-2" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <div class="circle-icon"> <i class="fa fa-paw"></i> </div>
+                <span>How to Create FAQ Section</span> </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse collapseOne" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+        </div>
+
+        <h2 class="accordion-header mb-2" id="headingTwo">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <div class="circle-icon"> <i class="fa fa-paw"></i> </div>
+                <span>How to Create FAQ Section</span> </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse collapseTwo" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+        </div>
+
+        <h2 class="accordion-header mb-2" id="headingThree">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                <div class="circle-icon"> <i class="fa fa-paw"></i> </div>
+                <span>How to Create FAQ Section</span> </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse collapseThree" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+        </div>
+        <h2 class="accordion-header mb-2" id="headingFour">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                <div class="circle-icon"> <i class="fa fa-paw"></i> </div>
+                <span>How to Create FAQ Section</span> </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse collapseFour" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+            <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+        </div>
+
+        <h2 class="accordion-header mb-2" id="headingFive">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                <div class="circle-icon"> <i class="fa fa-paw"></i> </div>
+                <span>How to Create FAQ Section</span> </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse collapseFive" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+            <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--footer starts-->
+<footer class="bg-dark py-5" id="contactus">
+<div class="container">
+    <div class="row text-white g-5">
+        <div class="col-md-4 col-lg-2 ">
+            <a class="text-uppercase text-decoration-none brand text-white" href="/user/homepage">Pawfect</a>
+            <p class="text-white mt-3">Fur you only</p>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <h5 class="fw-light">Links</h5>
+            <ul class="list-unstyled">
+                <li class="my-3">
+                    <a href="#" class="text-white text-decoration-none">
+                        <i class="fas fa-chevron-right me-1">
+                        </i>Home
+                    </a>
+                </li>
+                <li class="my-3">
+                    <a href="#pets" class="text-white text-decoration-none">
+                        <i class="fas fa-chevron-right me-1">
+
+                        </i>Pets
+                    </a>
+                </li>
+
+                <li class="my-3">
+                    <a href="#faqs" class="text-white text-decoration-none">
+                        <i class="fas fa-chevron-right me-1">
+
+                        </i>FAQs
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <h5 class="fw-light">Pets</h5>
+            <li class="my-3" th:each="pet:${petfetch}" ><a href="#pets" th:text="${pet.petname}" ></a></li>
+
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <h5 class="fw-light mb-3">Contact Us</h5>
+            <div class="d-flex justify-content-start align-items-start my-2 text-light">
+                <span class="me-3">
+                    <i class="fas fa-map-marked-alt"></i>
+                </span>
+                <span class="fw-light">
+                   Bhaktapur
+                </span>
+            </div>
+            <div class="d-flex justify-content-start align-items-start my-2 text-light">
+                <span class="me-3">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span class="fw-light">
+                    pawfect.support@gmail.com
+                </span>
+            </div>
+            <div class="d-flex justify-content-start align-items-start my-2 text-light">
+                <span class="me-3">
+                    <i class="fas fa-phone-alt"></i>
+                </span>
+                <span class="fw-light">
+                    +977 667755
+                </span>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <h5 class="fw-light mb-3">
+                Follow Us
+            </h5>
+            <div>
+                <ul class="list-unstyled d-flex ">
+                    <li>
+                        <a href="#" class="text-white text-decoration-none text-white fs-4 me-4">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-white text-decoration-none text-white fs-4 me-4">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-white text-decoration-none text-white fs-4 me-4">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-white text-decoration-none text-white fs-4 me-4">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+</footer>
+<!--footer ends-->
+
+
+<script>
+        let myPage="header";
+        let ListGroupItem=Array.from(document.getElementsByClassName("nav-link"));
+        ListGroupItem.forEach(i=>(
+        i.classList.remove("active")
+        ))
+        let activeID=document.getElementById(myPage);
+        activeID.classList.add("active");
+</script>
+<!--jquery-->
+<script th:src="@{/js/script.js}"></script>
+
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+
+<script th:src="@{/js/scriptmain.js}"></script>
+<!--bootstrap js-->
+<script th:src="@{/css/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js}"></script>
+</body>
+</html>
+

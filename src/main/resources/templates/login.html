@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <title>Pet Store Login</title>
+</head>
+<body>
+<div class="container h-100 d-flex justify-content-center align-items-center mt-5">
+
+    <div class="card" style="width: 400px;">
+        <div class="header">
+            <h3>Welcome back</h3>
+        </div>
+        <img src="images/Pawfect.png" class="card-img-top mx-auto d-block mb-0 mt-0" alt="Pet Store" style="width: 20%;
+margin-top: 10px">
+        <div class="card-body mt-0">
+            <form autocomplete="off" th:action="@{/login}" method="post" id="signUp">
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">You logged out of the system</div>
+                </div>
+                <fieldset>
+                <div class="form-group">
+                    <label for="email"> Email</label>
+                    <input type="email" name="email" id="email" class="form-control input-lg" placeholder="" required="true" autofocus="true"/>                </div>
+                <div class="form-group">
+                    <label for="password"> Password</label>
+                    <input type="password" id="password" name="password" class="form-control input-lg" placeholder="" required="true" />
+                </div>
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger" >You entered invalid credentials</div>
+                    </div>
+                <button name="login-submit" type="submit" form="signUp" value="Login" id="login-submit" class="btn btn-primary btn-block" style="margin-top: 20px;" >Login</button>
+                </fieldset>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <p>Don't have an account? <a th:href="@{~/user/signup}" class="login">Register</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
