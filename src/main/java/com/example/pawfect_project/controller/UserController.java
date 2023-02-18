@@ -3,6 +3,7 @@ package com.example.pawfect_project.controller;
 import com.example.pawfect_project.Entity.Pet;
 import com.example.pawfect_project.Entity.User;
 import com.example.pawfect_project.Pojo.AdoptionPojo;
+import com.example.pawfect_project.Pojo.FavoritePojo;
 import com.example.pawfect_project.Pojo.PetPojo;
 import com.example.pawfect_project.Pojo.UserPojo;
 import com.example.pawfect_project.Services.UserServices;
@@ -31,6 +32,7 @@ public class UserController {
     private final UserServices userService;
     private final com.example.pawfect_project.Services.PetServices petServices;
     private final com.example.pawfect_project.Services.AdoptionServices adoptionServices;
+    private final com.example.pawfect_project.Services.FavoriteServices favoriteServices;
 
     @GetMapping(value = {"/homepage"})
     public String getSetting(Model model ,Principal principal, Authentication authentication) {
@@ -71,7 +73,6 @@ public class UserController {
         return "redirect:/user/homepage";
     }
 
-
     @GetMapping("/petinfo/{id}")
     public String GetmoreInfo(@PathVariable("id") Integer id , Model model, Principal principal){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -79,7 +80,9 @@ public class UserController {
             return "redirect:/user/signup";
         }
         Pet pet= petServices.findById(id);
+
         model.addAttribute("adoption", new AdoptionPojo());
+        model.addAttribute("favorite", new FavoritePojo());
         model.addAttribute("petinfo",new PetPojo(pet));
         model.addAttribute("petdata",pet);
         model.addAttribute("info",userService.findByEmail(principal.getName()));
@@ -106,6 +109,28 @@ public class UserController {
     }
 
 
+    @PostMapping("/savefavorite")
+    public String getFav(@Valid FavoritePojo favoritePojo){
+        favoriteServices.save(favoritePojo);
+        return "redirect:/user/homepage";
+    }
+
+    @GetMapping("/viewAllMyFavorites/{id}")
+    public String getFavoriteinList(@PathVariable("id") Integer id, Model model, Principal principal) {
+        List<com.example.pawfect_project.Entity.Favorite> favorite=favoriteServices.findFavoriteById(id);
+        model.addAttribute("favoriteList", favorite);
+        model.addAttribute("userdata",userService.findByEmail(principal.getName()));
+
+        return "fav";
+    }
+
+    @GetMapping("/deleteFav/{id}")
+    public String deleteFavorite(@PathVariable("id") Integer id) {
+        favoriteServices.deleteById(id);
+        return "redirect:/user/homepage";
+    }
+
+
     @PostMapping("/updateprofile")
     public String updateRegister(@Valid UserPojo userPojo){
         userService.save(userPojo);
@@ -116,6 +141,11 @@ public class UserController {
     public String sendRegistrationEmail() {
         this.userService.sendEmail();
         return "emailsuccess";
+    }
+
+    @GetMapping("/pets/{category}")
+    public List<Pet> getPetsByCategory(@PathVariable String category){
+        return petServices.getPetsByCategory(category);
     }
 
 

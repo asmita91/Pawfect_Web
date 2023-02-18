@@ -63,6 +63,11 @@ public class PetServiceImpl implements com.example.pawfect_project.Services.PetS
         return findAllinList(petRepo.getThreeRandomData());
     }
 
+    @Override
+    public List<Pet> getPetsByCategory(String catrgory) {
+        return petRepo.findByCatrgory(catrgory);
+    }
+
 
     @Override
     public Pet findById(Integer id) {
@@ -78,6 +83,11 @@ public class PetServiceImpl implements com.example.pawfect_project.Services.PetS
                 .build();
         return pet;
     }
+//
+//    @Override
+//    public Pet findbyName(String name) {
+//       return petRepo.findPetByname(name);
+//    }
 
     @Override
     public void deleteById(Integer id) {

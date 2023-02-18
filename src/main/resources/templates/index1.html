@@ -21,6 +21,10 @@
             <button type="button" class="btn">
                     <a class="nav-link" th:href="@{~/user/viewAllMyAdoptions/}+${userdata.id}"> <i class="fa-solid fa-user"></i> </a>
             </button>
+
+            <button type="button" class="btn">
+                <a class="nav-link" th:href="@{~/user/viewAllMyFavorites/}+${userdata.id}"> <i class="fa fa-heart"></i> </a>
+            </button>
             <button type="button" class="btn" sec:authorize="isAuthenticated()" >
                 <a class="nav-link" th:href="@{~/logout}"><i class="fa fa-arrow-right-from-bracket"></i>  </a>
             </button>
@@ -79,11 +83,32 @@
         <div class="row g-0">
             <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
                 <button type="button" class="btn m-2 text-dark active-filter-btn" data-filter="*">All</button>
-                <button type="button" class="btn m-2 text-dark" data-filter=".cat">Cats</button>
-                <button type="button" class="btn m-2 text-dark" data-filter=".dog">Dogs</button>
+
+                <button type="button" class="btn m-2 text-dark" data-filter=".cat" id="cats">Cats</button>
+                <button type="button" class="btn m-2 text-dark" data-filter=".dog" id="dogs">Dogs</button>
                 <button type="button" class="btn m-2 text-dark" data-filter=".featured">Featured</button>
             </div>
+
             <script>
+                // <a th:href="@{~/user/pets/{category}}"></a>
+
+
+                   /* document.getElementById("cats").addEventListener("click",function() {
+                        console.log("cats category clicked")
+                        var category = "cats";
+                        if (category != null && category != "") {
+                            $.get(`/user/pets/${category}`, function(data) {
+                                var resultDiv = $("#fetchdiv");
+                                resultDiv.empty();
+                                for (var i = 0; i < data.length; i++) {
+                                    var pet = data[i];
+                                    // resultDiv.append("<p>" + pet.name + " (" + pet.category + ")</p>");
+                                }
+                            });
+                        }
+                    });
+*/
+
                 const dropdown = document.getElementById("pet-type");
                 const targetDiv = document.querySelector(".targetClass");
 
@@ -93,24 +118,21 @@
             </script>
 
             <div class="container" >
-                <div class="row">
-                    <div class="col card-deck my-3  d-flex flex-wrap ">
 
+                <div class="row">
+                    <div class="col card-deck my-3  d-flex flex-wrap " id="fetchdiv" >
                             <div class="card" th:each="pet:${add}" >
                                 <a th:href="@{~/user/petinfo/}+${pet.id}">
                                 <img class="card-img-top" th:src="'data:image/png;base64,'+${pet.imageBase64}"  alt="Card image cap">
+                                </a>
                                 <div class="card-body text-center">
                                     <h4 class="card-title" th:text="${pet.petname}"></h4>
                                     <p class="card-text" th:text="${pet.breed}"></p>
-                                    <p class="card-text" th:text="${pet.description}"></p>
                                 </div>
-                                </a>
                             </div>
                     </div>
                 </div>
             </div>
-
-
 
             <!--                </div>-->
 <!--                <div class="col-md-6 col-lg-4 col-xl-3 p-2 cats">-->
@@ -143,45 +165,45 @@
         <h2 class="accordion-header mb-2" id="headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <div class="circle-icon"> <i class="fa fa-paw"></i> </div>
-                <span>How to Create FAQ Section</span> </button>
+                <span>What type of pet should I get for my living situation?</span> </button>
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse collapseOne" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+            <div class="accordion-body"> <strong>This depends on a number of factors,</strong> including the size of your living space, whether you have any other pets or children, and how much time you can dedicate to caring for a pet. We can help you choose a pet that is compatible with your lifestyle.</div>
         </div>
 
         <h2 class="accordion-header mb-2" id="headingTwo">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <div class="circle-icon"> <i class="fa fa-paw"></i> </div>
-                <span>How to Create FAQ Section</span> </button>
+                <span>What kind of housing and environment does my pet need?</span> </button>
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse collapseTwo" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-            <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+            <div class="accordion-body"> <strong>Different pets have different housing and environmental needs.</strong> At Pawfect, we can provide guidance on the proper housing and environment for your pet, whether you have a dog or cat of any breed.</div>
         </div>
 
         <h2 class="accordion-header mb-2" id="headingThree">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
                 <div class="circle-icon"> <i class="fa fa-paw"></i> </div>
-                <span>How to Create FAQ Section</span> </button>
+                <span>How often should I take my pet to the vet and for what reasons?</span> </button>
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse collapseThree" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-            <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+            <div class="accordion-body"> <strong>Pets should have regular check-ups with a veterinarian at least once a year. </strong> During these check-ups, the vet can monitor your pet's health and provide any necessary vaccinations. If you notice any changes in your pet's behavior or health, take them to the vet as soon as possible. </div>
         </div>
         <h2 class="accordion-header mb-2" id="headingFour">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
                 <div class="circle-icon"> <i class="fa fa-paw"></i> </div>
-                <span>How to Create FAQ Section</span> </button>
+                <span>How do I train my pet?</span> </button>
         </h2>
         <div id="collapseFour" class="accordion-collapse collapse collapseFour" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-            <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+            <div class="accordion-body"> <strong>Training techniques can vary depending on the type of pet you have,</strong> but our staff at Pawfect can provide guidance on positive reinforcement training techniques and recommend resources such as books or trainers to help you train your pet. </div>
         </div>
 
         <h2 class="accordion-header mb-2" id="headingFive">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
                 <div class="circle-icon"> <i class="fa fa-paw"></i> </div>
-                <span>How to Create FAQ Section</span> </button>
+                <span>What kind of toys and activities are best for my pet's breed?</span> </button>
         </h2>
         <div id="collapseFive" class="accordion-collapse collapse collapseFive" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-            <div class="accordion-body"> <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+            <div class="accordion-body"> Different breeds of pets have different activity levels and play styles. Our staff at Pawfect can recommend the best toys and activities based on your pet's breed and personality to keep them happy, healthy, and entertained. </div>
         </div>
     </div>
 </div>

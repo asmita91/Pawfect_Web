@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product</title>
-    <link rel="stylesheet" th:href="@{~/css/style.css}">
+    <link rel="stylesheet" th:href="@{~/css/indiPet.css}">
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
@@ -30,8 +30,7 @@
         <div class = "pet-content">
             <h2 class = "pet-title" th:text="${petdata.getPetname()}"></h2>
 
-
-            <div class = "product-detail">
+            <div class = "pet-detail">
                 <h3>Attributes: </h3>
                 <ul>
                     <p>Name: <span th:text="${petdata.getPetname()}"></span></p>
@@ -42,13 +41,19 @@
                 </ul>
             </div>
 
-            <form th:action="@{/user/saveadoption}" th:object="${adoption}" th:method="post" class="justify-content-center">
-                <input type="text" hidden="hidden" name="user_id"  th:value="${info.id}">  <br>
-                <input type="text" hidden="hidden" name="pet_id"  th:value="${petdata.id}">  <br>
-                <button type="submit" class = "btn">Apply for adoption</button>
-            </form>
-
-<style>
+            <div class="d-flex justify-content-between">
+                <form th:action="@{/user/saveadoption}" th:object="${adoption}" th:method="post" class="justify-content-center">
+                    <input type="text" hidden="hidden" name="user_id" th:value="${info.id}">  <br>
+                    <input type="text" hidden="hidden" name="pet_id" th:value="${petdata.id}">  <br>
+                    <button type="submit" class="btn">Adopt</button>
+                </form>
+                <form th:action="@{/user/savefavorite}" th:object="${favorite}" th:method="post" class="justify-content-center">
+                    <input type="text" hidden="hidden" name="user_id" th:value="${info.id}">  <br>
+                    <input type="text" hidden="hidden" name="pet_id" th:value="${petdata.id}">  <br>
+                    <button type="submit" class="btn">Favorite</button>
+                </form>
+            </div>
+            <style>
     .card-wrapper {
     display: flex;
     justify-content: center;
