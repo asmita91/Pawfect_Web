@@ -24,7 +24,5 @@ public class Favorite {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user_id;
-
-
 }
 

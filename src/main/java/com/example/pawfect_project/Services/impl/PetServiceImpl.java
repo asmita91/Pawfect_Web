@@ -20,7 +20,6 @@ import java.util.stream.Stream;
 public class PetServiceImpl implements com.example.pawfect_project.Services.PetServices {
     private  final PetRepo petRepo;
     public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/pet";
-
     @Override
     public PetPojo save(PetPojo petPojo) throws IOException {
         Pet pet;
@@ -29,7 +28,6 @@ public class PetServiceImpl implements com.example.pawfect_project.Services.PetS
         } else {
             pet = new Pet();
         }
-
         if(petPojo.getId()!=null){
             pet.setId(petPojo.getId());
         }
@@ -52,6 +50,11 @@ public class PetServiceImpl implements com.example.pawfect_project.Services.PetS
         petRepo.save(pet);
         return new PetPojo(pet);
     }
+    @Override
+    public void deleteById(Integer id) {
+        petRepo.deleteById(id);
+    }
+
 
     @Override
     public List<Pet> findAll() {
@@ -62,12 +65,6 @@ public class PetServiceImpl implements com.example.pawfect_project.Services.PetS
     public List<Pet> getThreeRandomData() {
         return findAllinList(petRepo.getThreeRandomData());
     }
-
-    @Override
-    public List<Pet> getPetsByCategory(String catrgory) {
-        return petRepo.findByCatrgory(catrgory);
-    }
-
 
     @Override
     public Pet findById(Integer id) {
@@ -89,10 +86,6 @@ public class PetServiceImpl implements com.example.pawfect_project.Services.PetS
 //       return petRepo.findPetByname(name);
 //    }
 
-    @Override
-    public void deleteById(Integer id) {
-        petRepo.deleteById(id);
-    }
 
 
     public List<Pet> findAllinList(List<Pet> list){

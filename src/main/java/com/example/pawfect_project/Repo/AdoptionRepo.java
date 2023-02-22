@@ -10,4 +10,7 @@ import java.util.List;
 public interface AdoptionRepo extends JpaRepository<com.example.pawfect_project.Entity.Adoption,Integer> {
     @Query(value = "SELECT * FROM adoptions where user_id=?1", nativeQuery = true)
     List<com.example.pawfect_project.Entity.Adoption> findAdoptionById(Integer id);
+
+    @Query(value = "DELETE from adoptions where user_id=?1", nativeQuery = true)
+    Integer deleteByUser(Integer id);
 }

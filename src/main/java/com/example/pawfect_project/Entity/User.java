@@ -25,7 +25,6 @@ import static org.apache.catalina.realm.UserDatabaseRealm.getRoles;
 @Table(name="users", uniqueConstraints = {
         @UniqueConstraint(name = "UNIQUE_user_email", columnNames = "email")
 })
-
 public class User implements UserDetails {
     @Id
     @SequenceGenerator(name = "jps_user_seq_gen", sequenceName = "jps_user_id_seq", allocationSize = 1)

@@ -15,13 +15,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
-
+import java.util.Optional;
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PetRepositoryTest {
     @Autowired
     private PetRepo petRepo;
-
     @Test
     @Order(1)
     @Rollback(value=false)
@@ -45,14 +44,12 @@ public class PetRepositoryTest {
         Pet petCreated=petRepo.findById(1).get();
         Assertions.assertThat(petCreated.getId()).isEqualTo(1);
     }
-
     @Test
     @Order(3)
     public void getListOfPetTest(){
         List<Pet> Pets=petRepo.findAll();
-        Assertions.assertThat(Pets.size()).isGreaterThan(0);
+        Assertions.assertThat(Pets.size()).isGreaterThan(889);
     }
-
     @Test
     @Order(4)
     @Rollback(value=false)
@@ -61,5 +58,18 @@ public class PetRepositoryTest {
         pet.setPetname("Fluffy");
         Pet petUpdated=petRepo.save(pet);
         Assertions.assertThat(petUpdated.getPetname()).isEqualTo("Saggy");
+    }
+    @Test
+    @Order(5)
+    @Rollback(value=false)
+    public void deletePetTest(){
+        Pet pet=petRepo.findById(1).get();
+        petRepo.delete(pet);
+        Pet pet1=null;
+        Optional<Pet> optionalPet=petRepo.findPetByPetname("Fluffy");
+        if(optionalPet.isPresent()){
+            pet1=optionalPet.get();
+        }
+        Assertions.assertThat(pet1).isNull();
     }
 }

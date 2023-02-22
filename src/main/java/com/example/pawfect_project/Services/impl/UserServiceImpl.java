@@ -2,7 +2,8 @@ package com.example.pawfect_project.Services.impl;
 
 import com.example.pawfect_project.Entity.User;
 import com.example.pawfect_project.Pojo.UserPojo;
-import com.example.pawfect_project.Repo.EmailCredRepo;
+import com.example.pawfect_project.Repo.AdoptionRepo;
+import com.example.pawfect_project.Repo.FavoriteRepo;
 import com.example.pawfect_project.Services.UserServices;
 import com.example.pawfect_project.config.PasswordEncoderUtil;
 import com.example.pawfect_project.exception.AppException;
@@ -29,17 +30,10 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserServices {
-    private  final UserRepo userRepo;
-    private final JavaMailSender getJavaMailSender;
-    private final EmailCredRepo emailCredRepo;
+    private final UserRepo userRepo;
+    private final AdoptionRepo adoptionRepo;
+    private final FavoriteRepo favoriteRepo;
     private final ThreadPoolTaskExecutor taskExecutor;
-
-    @Autowired
-    @Qualifier("emailConfigBean")
-    private Configuration emailConfig;
-
-
-
     @Override
     public UserPojo save(UserPojo userPojo) {
         User user;
@@ -53,13 +47,13 @@ public class UserServiceImpl implements UserServices {
         user.setAge(userPojo.getAge());
         user.setGender(userPojo.getGender());
         user.setPassword(PasswordEncoderUtil.getInstance().encode(userPojo.getPassword()));
-
-//
         userRepo.save(user);
         return new UserPojo(user);
     }
-//
-
+    @Override
+    public List<User> fetchAll() {
+        return userRepo.findAll();
+    }
     @Override
     public User findByEmail(String email) {
         User user = userRepo.findByEmail(email)
@@ -67,11 +61,10 @@ public class UserServiceImpl implements UserServices {
         return user;
     }
 
-
     @Override
     public User findBYId(Integer id) {
-        User user= userRepo.findById(id).orElseThrow(()->new RuntimeException("not found"));
-        user=User.builder()
+        User user = userRepo.findById(id).orElseThrow(() -> new RuntimeException("not found"));
+        user = User.builder()
                 .id(user.getId())
                 .fullname(user.getFullname())
                 .email(user.getEmail())
@@ -79,58 +72,15 @@ public class UserServiceImpl implements UserServices {
         return user;
     }
 
-    @Override
-    public List<User> fetchAll() {
-        return userRepo.findAll();
-    }
 
 
     @Override
-    public void sendEmail() {
-        try {
-            Map<String, String> model = new HashMap<>();
-
-            MimeMessage message = getJavaMailSender.createMimeMessage();
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
-
-            Template template = emailConfig.getTemplate("emailTemp.ftl");
-            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
-
-            mimeMessageHelper.setTo("sendTo@yopmail.com");
-            mimeMessageHelper.setText(html, true);
-            mimeMessageHelper.setSubject("Registration");
-            mimeMessageHelper.setFrom("infodev.angular@gmail.com");
-
-            taskExecutor.execute(new Thread() {
-                public void run() {
-                    getJavaMailSender.send(message);
-                }
-            });
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
+    public void deleteById(Integer id) {
+        adoptionRepo.deleteById(id);
+        favoriteRepo.deleteById(id);
+        userRepo.deleteById(id);
     }
 
-//
-//    @Override
-//    public List<User> findAll() {
-//        return findAllInList(userRepo.findAll());
-//    }
-//
-//    public List<User> findAllInList(List<User> list) {
-//        Stream<User> allJobsWithImage = list.stream().map(user ->
-//                User.builder()
-//                        .id(user.getId())
-//                        .birthday(user.getBirthday())
-//                        .fullname(user.getFullname())
-//                        .email(user.getEmail())
-//                        .gender(user.getGender())
-//                        .build()
-//        );
-//        list = allJobsWithImage.toList();
-//        return list;
-//    }
 
 
 }

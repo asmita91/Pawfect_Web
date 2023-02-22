@@ -10,7 +10,6 @@ public interface PetServices {
     PetPojo save(PetPojo petPojo) throws IOException;
     List<Pet> findAll();
     List<Pet> getThreeRandomData();
-    List<Pet> getPetsByCategory(String catrgory);
     Pet findById(Integer id);
 
     void deleteById(Integer id);

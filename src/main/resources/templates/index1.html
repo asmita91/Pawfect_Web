@@ -53,7 +53,7 @@
 <!--navbar end-->
 
 <!--header-->
-<header id="header1"  class="vh-100 carousel slide responsive"  data-bs-ride="carousel" style="padding-top:3rem;  max-inline-size: 100%;
+<header id="header1"  class=" carousel slide responsive"  data-bs-ride="carousel" style="padding-top:3rem;  max-inline-size: 100%;
     block-size: auto;">
     <div class="container h-100 d-flex align-items-center carousel-inner">
 
@@ -62,9 +62,7 @@
             <a href="#pets" class="btn mt-3 text-uppercase">Adopt </a>
         </div>
         <div class="text-left carousel-item">
-            <h2 class="text-capitalize text-black">Fur-ever</h2>
-
-            <h2 class="text-uppercase py-2 fw-bold text-black " >Because its your Family</h2>
+            <h2 class="text-uppercase py-2 fw-bold " style="color: #B5C5CD" >Fur-ever <br> Because its your Family</h2>
 
             <a href="#pets" class="btn mt-3 text-uppercase">Adopt </a>
         </div>
@@ -75,82 +73,128 @@
 <!--header end-->
 <!--pets collection-->
 
-<section id="pets" class="py-5">
-    <div class="container">
-        <div class="title text-center">
-            <h2 class="position-relative d-inline-block">New Pets</h2>
-        </div>
-        <div class="row g-0">
-            <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
-                <button type="button" class="btn m-2 text-dark active-filter-btn" data-filter="*">All</button>
+<!--<section id="pets" class="py-5">-->
+<!--    <div class="container">-->
+<!--        <div class="title text-center">-->
+<!--            <h2 class="position-relative d-inline-block">New Pets</h2>-->
+<!--        </div>-->
+<!--&lt;!&ndash;        <div class="row g-0">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                <button type="button" class="btn m-2 text-dark active-filter-btn" data-filter="*">All</button>&ndash;&gt;-->
 
-                <button type="button" class="btn m-2 text-dark" data-filter=".cat" id="cats">Cats</button>
-                <button type="button" class="btn m-2 text-dark" data-filter=".dog" id="dogs">Dogs</button>
-                <button type="button" class="btn m-2 text-dark" data-filter=".featured">Featured</button>
-            </div>
+<!--&lt;!&ndash;                <button type="button" class="btn m-2 text-dark" data-filter=".cat" id="cats">Cats</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                <button type="button" class="btn m-2 text-dark" data-filter=".dog" id="dogs">Dogs</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                <button type="button" class="btn m-2 text-dark" data-filter=".featured">Featured</button>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
 
-            <script>
-                // <a th:href="@{~/user/pets/{category}}"></a>
+<!--&lt;!&ndash;            <script>&ndash;&gt;-->
+<!--&lt;!&ndash;                // <a th:href="@{~/user/pets/{category}}"></a>&ndash;&gt;-->
 
 
-                   /* document.getElementById("cats").addEventListener("click",function() {
-                        console.log("cats category clicked")
-                        var category = "cats";
-                        if (category != null && category != "") {
-                            $.get(`/user/pets/${category}`, function(data) {
-                                var resultDiv = $("#fetchdiv");
-                                resultDiv.empty();
-                                for (var i = 0; i < data.length; i++) {
-                                    var pet = data[i];
-                                    // resultDiv.append("<p>" + pet.name + " (" + pet.category + ")</p>");
-                                }
-                            });
-                        }
-                    });
-*/
+<!--&lt;!&ndash;                   /* document.getElementById("cats").addEventListener("click",function() {&ndash;&gt;-->
+<!--&lt;!&ndash;                        console.log("cats category clicked")&ndash;&gt;-->
+<!--&lt;!&ndash;                        var category = "cats";&ndash;&gt;-->
+<!--&lt;!&ndash;                        if (category != null && category != "") {&ndash;&gt;-->
+<!--&lt;!&ndash;                            $.get(`/user/pets/${category}`, function(data) {&ndash;&gt;-->
+<!--&lt;!&ndash;                                var resultDiv = $("#fetchdiv");&ndash;&gt;-->
+<!--&lt;!&ndash;                                resultDiv.empty();&ndash;&gt;-->
+<!--&lt;!&ndash;                                for (var i = 0; i < data.length; i++) {&ndash;&gt;-->
+<!--&lt;!&ndash;                                    var pet = data[i];&ndash;&gt;-->
+<!--&lt;!&ndash;                                    // resultDiv.append("<p>" + pet.name + " (" + pet.category + ")</p>");&ndash;&gt;-->
+<!--&lt;!&ndash;                                }&ndash;&gt;-->
+<!--&lt;!&ndash;                            });&ndash;&gt;-->
+<!--&lt;!&ndash;                        }&ndash;&gt;-->
+<!--&lt;!&ndash;                    });&ndash;&gt;-->
+<!--&lt;!&ndash;*/&ndash;&gt;-->
 
-                const dropdown = document.getElementById("pet-type");
-                const targetDiv = document.querySelector(".targetClass");
+<!--&lt;!&ndash;                const dropdown = document.getElementById("pet-type");&ndash;&gt;-->
+<!--&lt;!&ndash;                const targetDiv = document.querySelector(".targetClass");&ndash;&gt;-->
 
-                dropdown.addEventListener("change", function() {
-                    targetDiv.className = dropdown.value;
-                });
-            </script>
+<!--&lt;!&ndash;                dropdown.addEventListener("change", function() {&ndash;&gt;-->
+<!--&lt;!&ndash;                    targetDiv.className = dropdown.value;&ndash;&gt;-->
+<!--&lt;!&ndash;                });&ndash;&gt;-->
 
-            <div class="container" >
+<!--&lt;!&ndash;                // $.ajax({&ndash;&gt;-->
+<!--&lt;!&ndash;                //     url: "/categories",&ndash;&gt;-->
+<!--&lt;!&ndash;                //     success: function(categories) {&ndash;&gt;-->
+<!--&lt;!&ndash;                //         // Create category buttons&ndash;&gt;-->
+<!--&lt;!&ndash;                //         createCategoryButtons(categories);&ndash;&gt;-->
+<!--&lt;!&ndash;                //     }&ndash;&gt;-->
+<!--&lt;!&ndash;                // });&ndash;&gt;-->
 
-                <div class="row">
-                    <div class="col card-deck my-3  d-flex flex-wrap " id="fetchdiv" >
-                            <div class="card" th:each="pet:${add}" >
-                                <a th:href="@{~/user/petinfo/}+${pet.id}">
-                                <img class="card-img-top" th:src="'data:image/png;base64,'+${pet.imageBase64}"  alt="Card image cap">
-                                </a>
-                                <div class="card-body text-center">
-                                    <h4 class="card-title" th:text="${pet.petname}"></h4>
-                                    <p class="card-text" th:text="${pet.breed}"></p>
-                                </div>
-                            </div>
-                    </div>
+<!--&lt;!&ndash;                document.getElementById('cats').addEventListener("click", () =>{&ndash;&gt;-->
+
+<!--&lt;!&ndash;                })&ndash;&gt;-->
+
+
+
+
+
+<!--&lt;!&ndash;            </script>&ndash;&gt;-->
+
+<!--            <div class="container" >-->
+
+<!--                <div class="row">-->
+<!--                    <div class="col card-deck my-3 d-flex flex-wrap " style="height: " id="fetchdiv" >-->
+<!--                            <div class="card" th:each="pet:${add}" >-->
+<!--                                <a th:href="@{~/user/petinfo/}+${pet.id}">-->
+<!--                                <img class="card-img-top" th:src="'data:image/png;base64,'+${pet.imageBase64}"  style="height: 15rem;width:15rem" alt="Card image cap">-->
+<!--                                </a>-->
+<!--                               <div class="card-body text-center">-->
+<!--                                    <h4 class="card-title" th:text="${pet.petname}"></h4>-->
+<!--                                    <p class="card-text" th:text="${pet.breed}"></p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="col-md-6 col-lg-4 col-xl-3 p-2 cats">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="pets-img position-relative">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <img src="images/cat4.png" class="w-100">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-5"><i class="fas fa-heart"></i></span>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="text-center">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <p class="text-capitalize my-1 mt-3 mb-1">Golden Retriever</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span class="fw-bold d-block"> Fully Trained</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <a href="#" class="btn btn-primary mt-3">Adopt</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!-- Shop -->
+<section class="shop" id="shop">
+    <div class="heading">
+
+    </div>
+    <div class="container py-5" id="pets" >
+                <div class="title text-center">
+                    <h2 class="position-relative d-inline-block">New Pets</h2>
                 </div>
-            </div>
+    <!-- Content -->
+    <div class="shop-container">
+        <!-- Box 1 -->
+        <div class="box" th:each="pet:${add}">
+            <a th:href="@{~/user/petinfo/}+${pet.id}">
+                <div class="box-img">
+                    <img th:src="'data:image/png;base64,'+${pet.imageBase64}" alt="">
+                </div>
+            </a>
+                <div class="title-price">
+                    <h3 th:text="${pet.petname}"></h3>
+                </div>
 
-            <!--                </div>-->
-<!--                <div class="col-md-6 col-lg-4 col-xl-3 p-2 cats">-->
-<!--                    <div class="pets-img position-relative">-->
-<!--                        <img src="images/cat4.png" class="w-100">-->
-<!--                        <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-5"><i class="fas fa-heart"></i></span>-->
-
-
-<!--                    </div>-->
-<!--                        <div class="text-center">-->
-<!--                            <p class="text-capitalize my-1 mt-3 mb-1">Golden Retriever</p>-->
-<!--                            <span class="fw-bold d-block"> Fully Trained</span>-->
-<!--                            <a href="#" class="btn btn-primary mt-3">Adopt</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-
+            <!--                <i class='bx bx-cart' >buy</i>-->
         </div>
+
+    </div>
     </div>
 </section>
 

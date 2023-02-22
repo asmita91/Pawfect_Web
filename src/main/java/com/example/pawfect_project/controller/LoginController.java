@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class LoginController {
     private final UserServices userService;
-
     @GetMapping("/login")
     public String showLoginPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -25,7 +24,6 @@ public class LoginController {
         }
         return "redirect:/user/homepage";
     }
-
     @PostMapping("/logout")
     public String logout(Authentication authentication) {
         if (authentication.isAuthenticated()) {

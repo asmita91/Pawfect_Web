@@ -10,5 +10,5 @@ public interface UserServices {
     User findByEmail(String email);
     User findBYId(Integer id);
     List<User> fetchAll();
-    void sendEmail();
+    void deleteById(Integer id);
 }

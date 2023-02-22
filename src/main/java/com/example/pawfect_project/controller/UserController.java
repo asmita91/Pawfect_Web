@@ -137,16 +137,16 @@ public class UserController {
         return "redirect:/user/homepage";}
 
 
-    @GetMapping("/sendEmail")
-    public String sendRegistrationEmail() {
-        this.userService.sendEmail();
-        return "emailsuccess";
-    }
+//    @GetMapping("/sendEmail")
+//    public String sendRegistrationEmail() {
+//        this.userService.sendEmail();
+//        return "emailsuccess";
+//    }
 
-    @GetMapping("/pets/{category}")
-    public List<Pet> getPetsByCategory(@PathVariable String category){
-        return petServices.getPetsByCategory(category);
-    }
+//    @GetMapping("/pets/{category}")
+//    public List<Pet> getPetsByCategory(@PathVariable String category){
+//        return petServices.getPetsByCategory(category);
+//    }
 
 
 }

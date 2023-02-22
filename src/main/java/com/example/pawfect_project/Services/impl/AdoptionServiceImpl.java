@@ -24,17 +24,13 @@ public class AdoptionServiceImpl implements com.example.pawfect_project.Services
         }
         adoption.setUser_id(userRepo.findById(adoptionPojo.getUser_id()).orElseThrow());
         adoption.setPet_id(petRepo.findById(adoptionPojo.getPet_id()).orElseThrow());
-
         adoptionRepo.save(adoption);
         return new AdoptionPojo(adoption);
     }
-
     @Override
     public List<com.example.pawfect_project.Entity.Adoption> findAdoptionById(Integer id) {
         return findAllinList(adoptionRepo.findAdoptionById(id));
     }
-
-
 //    @Override
 //    public Order findOrderById(Integer id) {
 //            Order order=orderRepo.findById(id).orElseThrow(()-> new RuntimeException("not found"));

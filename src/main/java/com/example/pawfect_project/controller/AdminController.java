@@ -37,7 +37,6 @@ public class AdminController {
         model.addAttribute("add",new PetPojo());
         return "Admin/AddPet";
     }
-
     @PostMapping("/savepet")
     public String createUser(@Valid PetPojo petPojo,
                              BindingResult bindingResult, RedirectAttributes redirectAttributes
@@ -70,9 +69,6 @@ public class AdminController {
 
     @GetMapping("/deletepet/{id}")
     public String deleteMembers(@PathVariable("id") Integer id) {
-        if(adoptionServices.existsById(id)) {
-            adoptionServices.deleteById(id);
-        }
         petServices.deleteById(id);
         return "redirect:/admin/viewallpet";
     }
@@ -107,5 +103,9 @@ public class AdminController {
         return "Admin/user_list";
     }
 
-
+    @GetMapping("/deleteuser/{id}")
+    public String deleteUser(@PathVariable("id") Integer id) {
+        userServices.deleteById(id);
+        return "redirect:/admin/list";
+    }
 }

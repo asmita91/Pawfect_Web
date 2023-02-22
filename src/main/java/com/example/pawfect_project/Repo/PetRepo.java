@@ -13,8 +13,6 @@ import java.util.Optional;
 public interface PetRepo extends JpaRepository<Pet,Integer> {
     @Query(value = "SELECT * FROM pet ORDER BY RANDOM() LIMIT 3", nativeQuery = true)
     List<Pet> getThreeRandomData();
-    List<Pet> findByCatrgory(String catrgory);
-
-//    Pet findPetByname(String petname);
+Optional<Pet> findPetByPetname(String petname);
 
 }

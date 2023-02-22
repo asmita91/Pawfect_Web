@@ -1,10 +1,6 @@
 package com.example.pawfect_project.Entity;
-
-import com.example.pawfect_project.Entity.User;
 import jakarta.persistence.*;
 import lombok.*;
-
-
 @Builder
 @Getter
 @Setter
@@ -25,7 +21,5 @@ public class Adoption {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user_id;
-
-
 }
 

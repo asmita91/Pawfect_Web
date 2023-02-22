@@ -10,4 +10,7 @@ import java.util.List;
 public interface FavoriteRepo extends JpaRepository<com.example.pawfect_project.Entity.Favorite,Integer> {
     @Query(value = "SELECT * FROM favorites where user_id=?1", nativeQuery = true)
     List<com.example.pawfect_project.Entity.Favorite> findFavoriteById(Integer id);
+
+    @Query(value = "DELETE from favorites where user_id=?1", nativeQuery = true)
+    Integer deleteByUser(Integer id);
 }
